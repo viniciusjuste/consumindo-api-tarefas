@@ -1,0 +1,131 @@
+/* Form */
+.form-wrapper {
+    min-height: 100vh;
+    background: #f0f2f5;
+    padding: 2rem;
+}
+
+form {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-weight: 600;
+}
+
+/* Cards */
+h1 {
+    text-align: center;
+    margin: 2rem 0 1.5rem;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #333;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #555;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.btn-danger {
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+}
+
+/* Modal Delete*/
+.modal-content {
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: #dc3545;
+}
+
+.modal-body p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-footer {
+    border-top: none;
+    justify-content: space-between;
+    padding-top: 0;
+}
+
+.btn-danger,
+.btn-secondary {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+}
