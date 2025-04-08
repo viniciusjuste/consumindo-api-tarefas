@@ -1,0 +1,16 @@
+<form>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name of the task:</label>
+    <input [(ngModel)]="inputName" name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp" required>
+  </div>
+  <div class="mb-3">
+    <label for="isCompleted" class="form-label">Is the task completed:</label>
+    <select [(ngModel)]="inputIsCompleted" name="isCompleted" id="isCompleted" aria-describedby="isCompletedHelp"
+      class="form-select" required>
+      <option selected  [ngValue]="null" disabled selected>Select an option</option>
+      <option [ngValue]="true">Completed</option>
+      <option [ngValue]="false">Not Completed</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" (click)="addTask()">Submit</button>
+</form>
