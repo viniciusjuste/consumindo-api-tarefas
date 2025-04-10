@@ -10,7 +10,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -30,6 +30,8 @@ export class AppComponent implements OnInit {
   // Variables to store the data to be edited
   inputNameToEdit = '';
   inputIsCompletedToEdit: boolean | null = null;
+
+  taskExists: boolean = false;
 
   selectedTaskId: string = '';
 
@@ -132,6 +134,12 @@ export class AppComponent implements OnInit {
     })
   }
 
+  /**
+   * Edits an existing task using the input values for name and completion status.
+   * Sends a PUT request to the server with the updated task details.
+   * After a successful response, closes the edit task modal,
+   * refreshes the list of tasks, and resets the input fields.
+   */
   editTask() {
     const taskToBeEdited = {
       name: this.inputNameToEdit,
@@ -143,6 +151,19 @@ export class AppComponent implements OnInit {
       this.getAllTasks();
       this.inputNameToEdit = '';
       this.inputIsCompletedToEdit = false;
+    })
+  }
+
+  getTaskById(id: string) {
+    this.http.get<Task>(`${this.url}/${id}`).subscribe({
+      next: (task) => {
+        this.taskExists = true;
+        this.task$ = of(task);
+      },
+      error: (err: any) => {
+        this.taskExists = false;
+        console.error('Error when searching for task:', err);
+      }
     })
   }
 }

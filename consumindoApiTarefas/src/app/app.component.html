@@ -94,3 +94,15 @@
     </div>
   </div>
 </div>
+
+<!-- Search Task for ID-->
+<div class="form-wrapper">
+  <form>
+    <div class="mb-3">
+      <label for="id" class="form-label">ID of the task:</label>
+      <input [(ngModel)]="selectedTaskId" name="id" type="search" class="form-control" id="id" aria-describedby="idHelp"
+        required (keypress.enter)="getTaskById(selectedTaskId)">
+    </div>
+    <button class="btn btn-primary" (click)="getTaskById(selectedTaskId)">Search</button>
+  </form>
+</div>
