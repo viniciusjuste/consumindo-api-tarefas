@@ -15,13 +15,10 @@ declare var bootstrap: any;
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-
-  ngOnInit(): void {
-    this.getAllTasks();
-  }
+  deleteModal: any;
 
   title = 'consumindoApiTarefas';
-  url = 'http://localhost:5257/tasks';
+  url = 'http://localhost:5257/task';
 
   task$!: Observable<Task>;
   tasks$!: Observable<Task[]>;
@@ -29,16 +26,39 @@ export class AppComponent implements OnInit {
   inputName = '';
   inputIsCompleted: boolean | null = null;
 
+  selectedTaskId: string = '';
+
   constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.getAllTasks();
+  }
+
+  ngAfterViewInit(): void {
+    const modalElement = document.getElementById('deleteTaskModal');
+    if (modalElement) {
+      this.deleteModal = new bootstrap.Modal(modalElement);
+    }
+  }
 
   /**
    * Opens the delete task confirmation modal.
    * Utilizes Bootstrap's modal functionality to display the modal
    * with the ID 'deleteTaskModal'.
+   * @param task The task to be deleted.
    */
-  OpenDeleteModal() {
-    const modal = new bootstrap.Modal(document.getElementById('deleteTaskModal')!);
-    modal.show();
+  OpenDeleteModal(task: Task) {
+    this.selectedTaskId = task.id;
+    this.deleteModal?.show();
+  }
+
+  /**
+   * Closes the delete task confirmation modal.
+   * Utilizes Bootstrap's modal functionality to hide the modal
+   * with the ID 'deleteTaskModal'.
+   */
+  closeDeleteModal() {
+    this.deleteModal?.hide();
   }
 
   /**
@@ -54,11 +74,11 @@ export class AppComponent implements OnInit {
 
     this.http.post<Task>(`${this.url}/add`, newTask).subscribe((task) => {
       console.log(`Task added: ${task.name}`);
+      this.getAllTasks();
       this.inputName = '';
       this.inputIsCompleted = false;
     });
   }
-
 
   /**
    * Sends a GET request to the server to fetch all tasks, and assigns the response
@@ -66,5 +86,19 @@ export class AppComponent implements OnInit {
    */
   getAllTasks() {
     this.tasks$ = this.http.get<Task[]>(this.url);
+  }
+
+  /**
+   * Deletes a task with the given id from the server.
+   * Sends a DELETE request to the server with the task id.
+   * After a successful response, closes the delete task confirmation modal
+   * and refreshes the list of tasks.
+   * @param id The id of the task to delete.
+   */
+  deleteTask(id: string) {
+    this.http.delete(`${this.url}/${id}`).subscribe(() => {
+      this.closeDeleteModal();
+      this.getAllTasks();
+    })
   }
 }

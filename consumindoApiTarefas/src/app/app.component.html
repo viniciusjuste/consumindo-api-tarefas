@@ -27,7 +27,7 @@
     <h5 class="card-title">{{task.name}}</h5>
     <p class="card-text">{{task.isCompleted}}</p>
     <div class="d-flex justify-content-center align-items-center flex-row gap-2">
-      <a class="btn btn-danger" (click)="OpenDeleteModal()">Delete Task</a>
+      <a class="btn btn-danger" (click)="OpenDeleteModal(task)">Delete Task</a>
       <a class="btn btn-success">Edit Task</a>
     </div>
   </div>
@@ -49,10 +49,10 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Yes, Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteTask(selectedTaskId)">Yes, Delete</button>
       </div>
-
     </div>
   </div>
 </div>
