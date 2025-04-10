@@ -28,12 +28,12 @@
     <p class="card-text">{{task.isCompleted}}</p>
     <div class="d-flex justify-content-center align-items-center flex-row gap-2">
       <a class="btn btn-danger" (click)="OpenDeleteModal(task)">Delete Task</a>
-      <a class="btn btn-success">Edit Task</a>
+      <a class="btn btn-success" (click)="openEditModal(task)">Edit Task</a>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Delete-->
 <div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -52,6 +52,44 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
           (click)="closeDeleteModal()">Cancel</button>
         <button type="button" class="btn btn-danger" (click)="deleteTask(selectedTaskId)">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit-->
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteTaskModalLabel">Write the new data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name of the task:</label>
+            <input [(ngModel)]="inputNameToEdit" name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="isCompleted" class="form-label">Is the task completed:</label>
+            <select [(ngModel)]="inputIsCompletedToEdit" name="isCompleted" id="isCompleted" aria-describedby="isCompletedHelp"
+              class="form-select" required>
+              <option selected [ngValue]="null" disabled selected>Select an option</option>
+              <option [ngValue]="true">Completed</option>
+              <option [ngValue]="false">Not Completed</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="editTask()">Edit</button>
       </div>
     </div>
   </div>

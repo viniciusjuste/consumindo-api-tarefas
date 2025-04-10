@@ -16,6 +16,7 @@ declare var bootstrap: any;
 })
 export class AppComponent implements OnInit {
   deleteModal: any;
+  editModal: any;
 
   title = 'consumindoApiTarefas';
   url = 'http://localhost:5257/task';
@@ -25,6 +26,10 @@ export class AppComponent implements OnInit {
 
   inputName = '';
   inputIsCompleted: boolean | null = null;
+
+  // Variables to store the data to be edited
+  inputNameToEdit = '';
+  inputIsCompletedToEdit: boolean | null = null;
 
   selectedTaskId: string = '';
 
@@ -38,6 +43,11 @@ export class AppComponent implements OnInit {
     const modalElement = document.getElementById('deleteTaskModal');
     if (modalElement) {
       this.deleteModal = new bootstrap.Modal(modalElement);
+    }
+
+    const modalEditElement = document.getElementById('editTaskModal');
+    if (modalEditElement) {
+      this.editModal = new bootstrap.Modal(modalEditElement);
     }
   }
 
@@ -59,6 +69,26 @@ export class AppComponent implements OnInit {
    */
   closeDeleteModal() {
     this.deleteModal?.hide();
+  }
+
+  /**
+   * Opens the edit task modal for a given task.
+   * Utilizes Bootstrap's modal functionality to display the modal
+   * with the ID 'editTaskModal'.
+   * @param task The task to be edited.
+   */
+  openEditModal(task: Task) {
+    this.selectedTaskId = task.id;
+    this.editModal?.show();
+  }
+
+  /**
+   * Closes the edit task modal.
+   * Utilizes Bootstrap's modal functionality to hide the modal
+   * with the ID 'editTaskModal'.
+   */
+  closeEditModal() {
+    this.editModal?.hide();
   }
 
   /**
@@ -99,6 +129,20 @@ export class AppComponent implements OnInit {
     this.http.delete(`${this.url}/${id}`).subscribe(() => {
       this.closeDeleteModal();
       this.getAllTasks();
+    })
+  }
+
+  editTask() {
+    const taskToBeEdited = {
+      name: this.inputNameToEdit,
+      isCompleted: this.inputIsCompletedToEdit
+    };
+
+    this.http.put<Task>(`${this.url}/${this.selectedTaskId}`, taskToBeEdited).subscribe(() => {
+      this.closeEditModal();
+      this.getAllTasks();
+      this.inputNameToEdit = '';
+      this.inputIsCompletedToEdit = false;
     })
   }
 }
