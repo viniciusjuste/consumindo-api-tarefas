@@ -71,13 +71,13 @@
         <form>
           <div class="mb-3">
             <label for="name" class="form-label">Name of the task:</label>
-            <input [(ngModel)]="inputNameToEdit" name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp"
-              required>
+            <input [(ngModel)]="inputNameToEdit" name="name" type="text" class="form-control" id="name"
+              aria-describedby="nameHelp" required>
           </div>
           <div class="mb-3">
             <label for="isCompleted" class="form-label">Is the task completed:</label>
-            <select [(ngModel)]="inputIsCompletedToEdit" name="isCompleted" id="isCompleted" aria-describedby="isCompletedHelp"
-              class="form-select" required>
+            <select [(ngModel)]="inputIsCompletedToEdit" name="isCompleted" id="isCompleted"
+              aria-describedby="isCompletedHelp" class="form-select" required>
               <option selected [ngValue]="null" disabled selected>Select an option</option>
               <option [ngValue]="true">Completed</option>
               <option [ngValue]="false">Not Completed</option>
@@ -96,7 +96,7 @@
 </div>
 
 <!-- Search Task for ID-->
-<div class="form-wrapper">
+<div class="search-wrapper">
   <form>
     <div class="mb-3">
       <label for="id" class="form-label">ID of the task:</label>
@@ -105,4 +105,15 @@
     </div>
     <button class="btn btn-primary" (click)="getTaskById(selectedTaskId)">Search</button>
   </form>
+</div>
+
+<!-- Show task found by id -->
+<div class="card text-center" *ngIf="taskExists && (task$ | async) as task">
+  <div class="card-header">
+    Task {{task.id}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{task.name}}</h5>
+    <p class="card-text">{{task.isCompleted}}</p>
+  </div>
 </div>

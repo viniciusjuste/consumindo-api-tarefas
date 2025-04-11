@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Task } from '../../models/Task';
 import { FormsModule } from '@angular/forms';
@@ -154,11 +153,21 @@ export class AppComponent implements OnInit {
     })
   }
 
+  /**
+   * Retrieves a task with the given id from the server.
+   * Sends a GET request to the server with the task id.
+   * If the task exists, sets the taskExists flag to true and
+   * updates the task$ observable with the retrieved task.
+   * If the task does not exist, sets the taskExists flag to false
+   * and logs an error message.
+   * @param id The id of the task to search for.
+   */
   getTaskById(id: string) {
     this.http.get<Task>(`${this.url}/${id}`).subscribe({
       next: (task) => {
         this.taskExists = true;
         this.task$ = of(task);
+        this.selectedTaskId = '';
       },
       error: (err: any) => {
         this.taskExists = false;
